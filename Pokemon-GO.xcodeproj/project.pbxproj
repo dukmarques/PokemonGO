@@ -13,6 +13,7 @@
 		A0D5F73A224337A500D7F4CE /* Pokemon_GO.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A0D5F738224337A500D7F4CE /* Pokemon_GO.xcdatamodeld */; };
 		A0D5F73C224337A600D7F4CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0D5F73B224337A600D7F4CE /* Assets.xcassets */; };
 		A0D5F73F224337A600D7F4CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0D5F73D224337A600D7F4CE /* LaunchScreen.storyboard */; };
+		A0D5F7482243395E00D7F4CE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D5F7472243395E00D7F4CE /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		A0D5F73B224337A600D7F4CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A0D5F73E224337A600D7F4CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0D5F740224337A600D7F4CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0D5F7472243395E00D7F4CE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0D5F7482243395E00D7F4CE /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +45,7 @@
 			children = (
 				A0D5F730224337A500D7F4CE /* Pokemon-GO */,
 				A0D5F72F224337A500D7F4CE /* Products */,
+				A0D5F7462243395E00D7F4CE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,6 +69,14 @@
 				A0D5F738224337A500D7F4CE /* Pokemon_GO.xcdatamodeld */,
 			);
 			path = "Pokemon-GO";
+			sourceTree = "<group>";
+		};
+		A0D5F7462243395E00D7F4CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A0D5F7472243395E00D7F4CE /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
