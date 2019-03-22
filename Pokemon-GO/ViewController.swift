@@ -21,19 +21,30 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        
+        //Show pokemons
+        //Runs code in a time interval
+        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
+            print("Show anotation")
+            if let coordinate = self.locationManager.location?.coordinate{
+                let annotation = MKPointAnnotation()
+                
+                let latRandom = (Double(arc4random_uniform(400)) - 200) / 100000.0
+                let longRandom = (Double(arc4random_uniform(400)) - 200) / 100000.0
+                
+                annotation.coordinate = coordinate
+                annotation.coordinate.latitude += latRandom
+                annotation.coordinate.longitude += longRandom
+                
+                self.map.addAnnotation(annotation) //Add annotation on the map
+            }
+        }
     }
     
     //Retrieve user location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if count < 3 {
-            if let coordinates = locationManager.location?.coordinate {
-                let distance: CLLocationDistance = 200
-                //New method that replaces: MKCoordinateRegionMakeWithDistance()
-                let region = MKCoordinateRegion.init(center: coordinates, latitudinalMeters: distance, longitudinalMeters: distance)
-                
-                map.setRegion(region, animated: true)
-            }
-            
+            self.centralize()
             count += 1
         }else{
             //Stop update location
@@ -58,6 +69,24 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             alertController.addAction(actionCancel)
             
             present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func centerPlayer(_ sender: Any) {
+        self.centralize()
+    }
+    
+    @IBAction func openPokedex(_ sender: Any) {
+        
+    }
+    
+    func centralize() {
+        if let coordinates = locationManager.location?.coordinate {
+            let distance: CLLocationDistance = 200
+            //New method that replaces: MKCoordinateRegionMakeWithDistance()
+            let region = MKCoordinateRegion.init(center: coordinates, latitudinalMeters: distance, longitudinalMeters: distance)
+            
+            map.setRegion(region, animated: true)
         }
     }
 }
