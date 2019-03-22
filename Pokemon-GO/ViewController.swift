@@ -12,6 +12,7 @@ import MapKit
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var map: MKMapView!
     var locationManager = CLLocationManager()
+    var count = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,24 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+    }
+    
+    //Retrieve user location
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if count < 3 {
+            if let coordinates = locationManager.location?.coordinate {
+                let distance: CLLocationDistance = 200
+                //New method that replaces: MKCoordinateRegionMakeWithDistance()
+                let region = MKCoordinateRegion.init(center: coordinates, latitudinalMeters: distance, longitudinalMeters: distance)
+                
+                map.setRegion(region, animated: true)
+            }
+            
+            count += 1
+        }else{
+            //Stop update location
+            locationManager.stopUpdatingLocation()
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
