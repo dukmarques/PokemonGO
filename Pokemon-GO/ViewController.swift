@@ -40,6 +40,26 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             }
         }
     }
+
+    //Show annotations with image
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
+        
+        //Checks whether the bookmark is the user's or annotations
+        if annotation is MKUserLocation {
+            annotationView.image = #imageLiteral(resourceName: "Image")
+        }else{
+            annotationView.image = #imageLiteral(resourceName: "pikachu-2")
+        }
+        
+        //Sets the size of the image in the annotation
+        var frame = annotationView.frame
+        frame.size.height = 40
+        frame.size.width = 40
+        annotationView.frame = frame
+        
+        return annotationView
+    }
     
     //Retrieve user location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
