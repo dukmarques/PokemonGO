@@ -9,9 +9,17 @@
 import UIKit
 
 class PokeAgendaViewController: UIViewController {
+    var capturedPokemons: [Pokemon] = []
+    var uncapturedPokemons: [Pokemon] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let coreDataPokemon = CoreDataPokemon()
+        self.capturedPokemons = coreDataPokemon.retrieveCapturedPokemons(captured: true)
+        self.uncapturedPokemons = coreDataPokemon.retrieveCapturedPokemons(captured: false)
+        
+        print(String(self.uncapturedPokemons.count))
     }
     
     @IBAction func backMap(_ sender: Any) {
