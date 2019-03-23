@@ -31,14 +31,18 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         //Show pokemons
         //Runs code in a time interval
         Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
-            print("Show anotation")
             if let coordinate = self.locationManager.location?.coordinate{
-                let annotation = MKPointAnnotation()
+                let totalPokemons = UInt32(self.pokemons.count)
+                let indexRandomPokemon = arc4random_uniform(totalPokemons)
+                
+                let pokemon = self.pokemons[Int(indexRandomPokemon)]
+                print(pokemon.name)
+                
+                let annotation = PokemonAnnotation(coordinates: coordinate)
                 
                 let latRandom = (Double(arc4random_uniform(400)) - 200) / 100000.0
                 let longRandom = (Double(arc4random_uniform(400)) - 200) / 100000.0
                 
-                annotation.coordinate = coordinate
                 annotation.coordinate.latitude += latRandom
                 annotation.coordinate.longitude += longRandom
                 
