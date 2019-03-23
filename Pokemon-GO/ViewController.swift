@@ -36,9 +36,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 let indexRandomPokemon = arc4random_uniform(totalPokemons)
                 
                 let pokemon = self.pokemons[Int(indexRandomPokemon)]
-                print(pokemon.name)
                 
-                let annotation = PokemonAnnotation(coordinates: coordinate)
+                let annotation = PokemonAnnotation(coordinates: coordinate, pokemon: pokemon)
                 
                 let latRandom = (Double(arc4random_uniform(400)) - 200) / 100000.0
                 let longRandom = (Double(arc4random_uniform(400)) - 200) / 100000.0
@@ -51,7 +50,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
     }
 
-    //Show annotations with image
+    //ViewFor annotation - Show annotations with image
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
         
@@ -59,7 +58,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if annotation is MKUserLocation {
             annotationView.image = #imageLiteral(resourceName: "Image")
         }else{
-            annotationView.image = #imageLiteral(resourceName: "pikachu-2")
+            let pokemon = (annotation as! PokemonAnnotation).pokemon
+            
+            annotationView.image = UIImage(named: pokemon.nameImage!)
         }
         
         //Sets the size of the image in the annotation
