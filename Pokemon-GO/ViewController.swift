@@ -72,6 +72,19 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         return annotationView
     }
     
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let annotation = view.annotation
+        let pokemon = (annotation as! PokemonAnnotation).pokemon
+        
+        mapView.deselectAnnotation(annotation, animated: true) //Unmark annotation
+        
+        if annotation is MKUserLocation {
+            return
+        }
+        
+        self.coreDataPokemon.savePokemon(pokemon: pokemon)
+    }
+    
     //Retrieve user location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if count < 3 {
