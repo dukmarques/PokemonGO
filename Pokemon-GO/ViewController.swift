@@ -30,7 +30,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         //Show pokemons
         //Runs code in a time interval
-        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { (timer) in
+        Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { (timer) in
             if let coordinate = self.locationManager.location?.coordinate{
                 let totalPokemons = UInt32(self.pokemons.count)
                 let indexRandomPokemon = arc4random_uniform(totalPokemons)
@@ -82,7 +82,26 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             return
         }
         
-        self.coreDataPokemon.savePokemon(pokemon: pokemon)
+        //Center the selected pokemon on the map
+        if let coordAnnotation = annotation?.coordinate {
+            let distance: CLLocationDistance = 200
+            //New method that replaces: MKCoordinateRegionMakeWithDistance()
+            let region = MKCoordinateRegion.init(center: coordAnnotation, latitudinalMeters: distance, longitudinalMeters: distance)
+            
+            map.setRegion(region, animated: true)
+        }
+        
+        // Wait 1 second and do the capture scan
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { (timer) in
+            if let coord = self.locationManager.location?.coordinate {
+                if self.map.visibleMapRect.contains(MKMapPoint.init(coord)) {
+                    print("Você pode capturar o pokemon")
+                    self.coreDataPokemon.savePokemon(pokemon: pokemon)
+                } else {
+                    print("Você não pode capturar o pokemon")
+                }
+            }
+        }
     }
     
     //Retrieve user location
