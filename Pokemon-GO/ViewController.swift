@@ -100,6 +100,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                     
                     //Alert for when the pokemon is captured
                     let alertController = UIAlertController(title: "Parabéns!", message: "Você capturou um \(pokemon.name!)", preferredStyle: .alert)
+                    
                     let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
                     alertController.addAction(ok)
                     
